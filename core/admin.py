@@ -4,7 +4,6 @@ from core.models import *
 
 admin.site.register(ArchaeologicalSite)
 admin.site.register(ArtefactImage)
-admin.site.register(ArchaeologicalSite)
 admin.site.register(RawMaterial)
 admin.site.register(SubType)
 admin.site.register(Collection)
