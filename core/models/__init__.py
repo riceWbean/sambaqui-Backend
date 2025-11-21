@@ -5,3 +5,4 @@ from .address import Address
 from .archaelogical_site import ArchaeologicalSite
 from .collection import Collection
 from .localization import Localization
+from .origin import Origin

@@ -4,5 +4,5 @@ from core.models import Collection
 from core.serializers import CollectionSerializer
 
 class CollectionViewSet(ModelViewSet):
-    queryset = Collection
+    queryset = Collection.objects.all()
     serializer_class = CollectionSerializer

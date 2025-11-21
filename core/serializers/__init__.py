@@ -5,3 +5,4 @@ from .address import AddressSerializer
 from .archaelogical_site import ArchaeologicalSiteSerializer
 from .collection import CollectionSerializer
 from .localization import LocalizationSerializer
+from .origin import OriginSerializer
