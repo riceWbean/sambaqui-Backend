@@ -6,3 +6,4 @@ from .collection import CollectionSerializer
 from .localization import LocalizationSerializer
 from .origin import OriginSerializer
 from .log_changes import LogChangesSerializer
+from .conservation_actions import ConservationActionSerializer
