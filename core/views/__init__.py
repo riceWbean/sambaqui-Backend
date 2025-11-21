@@ -5,3 +5,8 @@ from .localization import LocalizationViewSet
 from .sub_type import SubTypeViewSet
 from .artefact_image import ArtefactImageViewSet
 from .artefact import ArtefactViewSet
+from .archaelogical_site import ArchaeologicalSiteViewSet
+from .log_movement import LogMovementViewSet
+from .reserve import ReserveViewSet
+from .log_changes import LogChangesViewSet
+from .conservation_actions import ConservationActionViewSet

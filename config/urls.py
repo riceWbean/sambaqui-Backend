@@ -26,6 +26,10 @@ router.register('raw-materials', RawMaterialViewSet)
 router.register('sub-types', SubTypeViewSet)
 router.register('artefacts', ArtefactViewSet)
 router.register('archaelogical_sites', ArchaeologicalSiteViewSet)
+router.register('log-movements', LogMovementViewSet)
+router.register('reserves', ReserveViewSet)
+router.register('log-changes', LogChangesViewSet)
+router.register('conservation-actions', ConservationActionViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

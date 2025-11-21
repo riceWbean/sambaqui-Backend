@@ -5,3 +5,8 @@ from .artefact_image import ArtefactImage
 from .collection import Collection
 from .localization import Localization
 from .artefact import Artefact
+from .archaelogical_site import ArchaeologicalSite
+from .log_movement import LogMovement
+from .reserve import Reserve
+from .log_changes import LogChanges
+from .conservation_actions import ConservationAction
