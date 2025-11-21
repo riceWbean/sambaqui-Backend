@@ -7,3 +7,5 @@ from .localization import LocalizationViewSet
 from .origin import OriginViewSet
 from .log_movement import LogMovementViewSet
 from .reserve import ReserveViewSet
+from .log_changes import LogChangesViewSet
+from .conservation_actions import ConservationActionViewSet

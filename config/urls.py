@@ -25,8 +25,10 @@ router.register('localizations', LocalizationViewSet)
 router.register('rawmaterials', RawMaterialViewSet)
 router.register('subtypes', SubtypeViewSet)
 router.register('origins', OriginViewSet)
-router.register('logmovements', LogMovementViewSet)
+router.register('log-movements', LogMovementViewSet)
 router.register('reserves', ReserveViewSet)
+router.register('log-changes', LogChangesViewSet)
+router.register('conservation-actions', ConservationActionViewSet)
 
 
 urlpatterns = [
