@@ -1,7 +1,7 @@
 from django.db import models
-from .rawmaterial import RawMaterial
+from .raw_material import RawMaterial
 
-class Subtype(models.Model):
+class SubType(models.Model):
     name = models.CharField(max_length=50)
     raw_material = models.ForeignKey(RawMaterial, on_delete=models.PROTECT, related_name='subtypes')
 
