@@ -25,6 +25,7 @@ router.register('localizations', LocalizationViewSet)
 router.register('rawmaterials', RawMaterialViewSet)
 router.register('subtypes', SubtypeViewSet)
 router.register('origins', OriginViewSet)
+router.register('conservation-actions', ConservationActionViewSet)
 
 
 urlpatterns = [
