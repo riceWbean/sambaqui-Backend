@@ -5,4 +5,4 @@ from .archaelogical_site import ArchaeologicalSiteSerializer
 from .collection import CollectionSerializer
 from .localization import LocalizationSerializer
 from .origin import OriginSerializer
-from .Log_changes import LogChangesSerializer
+from .log_changes import LogChangesSerializer

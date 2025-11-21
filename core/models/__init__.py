@@ -5,5 +5,5 @@ from .archaelogical_site import ArchaeologicalSite
 from .collection import Collection
 from .localization import Localization
 from .origin import Origin
-from .Log_changes import LogChanges
+from .log_changes import LogChanges
 

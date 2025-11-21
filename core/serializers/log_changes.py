@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models.Log_changes import LogChanges
+from core.models.log_changes import LogChanges
 
 class LogChangesSerializer(serializers.ModelSerializer):
     class Meta:

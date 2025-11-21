@@ -5,4 +5,4 @@ from .archaelogical_site import ArchaeologicalSiteViewSet
 from .collection import CollectionViewSet
 from .localization import LocalizationViewSet
 from .origin import OriginViewSet
-from .Log_changes import LogChangesViewSet
+from .log_changes import LogChangesViewSet
