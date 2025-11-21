@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 from usuario.views import UserViewSet
 from core.views import *
 
+
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
@@ -20,6 +21,10 @@ router = DefaultRouter()
 router.register('users', UserViewSet)
 router.register('images', ImageViewSet)
 router.register('collections', CollectionViewSet)
+router.register('localizations', LocalizationViewSet)
+router.register('rawmaterials', RawMaterialViewSet)
+router.register('subtypes', SubtypeViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
