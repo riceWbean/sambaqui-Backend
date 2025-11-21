@@ -6,8 +6,3 @@ class LogChangesSerializer(serializers.ModelSerializer):
         model = LogChanges
         fields = ['id', 'change_type', 'changed_by', 'change_date', 'description', 'artefact']
         read_only_fields = ['id']
-
-    def validate_change_date(self, value):
-        if value > serializers.datetime.date.today():
-            raise serializers.ValidationError("The change date cannot be in the future.")
-        return value
