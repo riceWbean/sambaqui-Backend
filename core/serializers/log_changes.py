@@ -4,5 +4,5 @@ from core.models.log_changes import LogChanges
 class LogChangesSerializer(serializers.ModelSerializer):
     class Meta:
         model = LogChanges
-        fields = ['id', 'change_type', 'changed_by', 'change_date', 'description', 'artefact']
+        fields = "__all__"
         read_only_fields = ['id']

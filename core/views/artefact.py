@@ -22,21 +22,25 @@ class ArtefactViewSet(ModelViewSet):
     search_fields = ['name', 'other_name', 'description']
 
     def get_queryset(self):
-        queryset = Artefact.objects.prefetch_related("images").all()
+        queryset = Artefact.objects.prefetch_related("images").all().order_by("-id")
 
-        allowed_filters = ['conservation_status', 'completeness', 'detail_conservation_status', 'collection_category', 'ethnic_group', 'technique', 'reserved', 'collection', 'raw_material', 'sub_type', 'archaeological_site']
+        if self.action != "retrieve":
+            allowed_filters = ['conservation_status', 'completeness', 'detail_conservation_status', 'collection_category', 'ethnic_group', 'technique', 'reserved', 'collection', 'raw_material', 'sub_type', 'archaeological_site']
 
-        for key, value in self.request.GET.items():
-            if key in allowed_filters and value:
-                print(key)
-                queryset.filter(**{key: value})
+            for key, value in self.request.GET.items():
+                if key in allowed_filters and value:
+                    print(key)
+                    queryset = queryset.filter(**{key: value}).order_by("-id")
+            
+            
+            num_artefacts = self.request.GET.get('num_artefacts', 15)
+            page = self.request.GET.get('page', 1)
+
+            artefacts_per_paginator = Paginator(queryset, num_artefacts)
+            
+            return artefacts_per_paginator.get_page(page)
         
-        num_artefacts = self.request.GET.get('num_artefacts', 15)
-        page = self.request.GET.get('page', 1)
-
-        artefacts_per_paginator = Paginator(queryset, num_artefacts)
-        
-        return artefacts_per_paginator.get_page(page)
+        return queryset
 
     def create(self, request, *args, **kwargs):
         serializerArtefact = ArtefactCreateSerializer(data=request.data)
