@@ -1,5 +1,10 @@
 from django.db import models
 
+from .localization import Localization
+from .collection import Collection
+from .raw_material import RawMaterial
+from .sub_type import SubType
+
 class Artefact(models.Model):
     class ConservationStatus(models.IntegerChoices):
         PERFECT = 1, "Perfeito",
@@ -10,12 +15,39 @@ class Artefact(models.Model):
         IRRETRIEVABLE = 6, "Irreversível"
     class Completeness(models.IntegerChoices):
         WHOLE = 1, "Inteiro"
-        FRAGMENTED = 2, "Fratura"
+        FRAGMENTED = 2, "Fragmentado"
+        FRACTURE = 3, "Fraturado"
     class DetailConservationStatus(models.IntegerChoices):
         FRIABLE = 1, "Friável"
-        FRACTURE = 2, "Fraturado"
+        ERODED = 2, "Erodido"
+        CHIPPED = 3, "Lascado"
+        INCOMPLETE = 4, "Incompleto"
+        CHEMICHAL_CHANGE = 5, "Alterado quimicamente"
+        DEFORMED = 6, "Deformado"
+        STABLE = 7, "Estável"
     class CollectionCategory(models.IntegerChoices):
         ARCHAEOLOGICAL = 1, "Archaeological"
+        ETHNOGRAPHIC = 2, "Etnográfico"
+        PALEONTOLOGICAL = 3, "Paleontológico"
+        HISTORIC = 4, "Histórico"
+        BIBLIOGRAPHIC = 5, "Bibliográfico"
+        DOCUMENTAL = 6, "Documental"
+        INDETERMINATE = 7, "Indeterminado"
+    class EthnicGroup(models.IntegerChoices):
+        SAMBAQUI = 1, "Sambaqui"
+        GUARANI = 2, "Guarani"
+        ITARARE_TAQUARA = 3, "Itararé/Taquara"
+        INDETERMINATE = 4, "Indeterminado"
+    class Technique(models.IntegerChoices):
+        PERCUSSION = 1, "Percussão"
+        PRESSURE_FLAKING = 2, "Lasqueamento por pressão"
+        GRINDING = 3, "Abrasão / Polimento"
+        DRILLING = 4, "Perfuramento"
+        CARVING = 5, "Entalhe"
+        SCRAPING = 6, "Raspagem"
+        RETOUCH = 7, "Retoque"
+        BURNISHING = 8, "Friccionamento"
+        NONE_IDENTIFIED = 9, "Não identificada"
     name = models.CharField(max_length=100)
     other_name = models.CharField(max_length=100)
     dimension_length = models.PositiveSmallIntegerField()
@@ -26,3 +58,15 @@ class Artefact(models.Model):
     completeness = models.IntegerField()
     description = models.TextField()
     observation = models.TextField()
+    register_date = models.DateField(auto_now_add=True)
+    bibliographic_reference = models.TextField()
+    reserved = models.BooleanField(default=False)
+    localization = models.ForeignKey()
+    collection = models.ForeignKey()
+    raw_material = models.ForeignKey()
+    sub_type = models.ForeignKey()
+    origin = models.ForeignKey()
+    archaeological_site = models.ForeignKey()
+
+    def __str__(self):
+        return f"#{self.id} {self.name}"

@@ -19,13 +19,13 @@ from rest_framework_simplejwt.views import (
 
 router = DefaultRouter()
 router.register('users', UserViewSet)
-router.register('images', ImageViewSet)
+router.register('artefact-images', ArtefactImageViewSet)
 router.register('collections', CollectionViewSet)
 router.register('localizations', LocalizationViewSet)
-router.register('rawmaterials', RawMaterialViewSet)
-router.register('subtypes', SubtypeViewSet)
-router.register('origins', OriginViewSet)
-
+router.register('raw-materials', RawMaterialViewSet)
+router.register('sub-types', SubTypeViewSet)
+router.register('artefacts', ArtefactViewSet)
+router.register('archaelogical_sites', ArchaeologicalSiteViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
