@@ -1,5 +1,5 @@
 from django.db import models
-from rawmaterial import RawMaterial
+from .rawmaterial import RawMaterial
 
 class Subtype(models.Model):
     name = models.CharField(max_length=50)

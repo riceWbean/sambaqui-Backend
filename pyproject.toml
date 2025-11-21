@@ -17,8 +17,8 @@ distribution = false
 [tool.pdm.scripts]
 
 dev = "python manage.py runserver"
+pre_migrate = "python manage.py makemigrations"
 migrate = "python manage.py migrate"
-makemigrations = "python manage.py makemigrations"
 startapp = "python manage.py startapp"
 createsuperuser = "python manage.py createsuperuser"
 shell = "python manage.py shell"
