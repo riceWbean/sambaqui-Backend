@@ -1,4 +1,4 @@
-from .rawmaterial import RawMaterialSerializer
+from .raw_material import RawMaterialSerializer
 from .archaelogical_site import ArchaeologicalSiteSerializer
 from .sub_type import SubTypeSerializer
 from .artefact_image import ArtefactImageSerializer

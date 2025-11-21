@@ -1,4 +1,4 @@
-from .rawmaterial import RawMaterialViewSet 
+from .raw_material import RawMaterialViewSet 
 from .archaelogical_site import ArchaeologicalSiteViewSet
 from .collection import CollectionViewSet
 from .localization import LocalizationViewSet
