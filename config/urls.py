@@ -20,7 +20,7 @@ from rest_framework_simplejwt.views import (
 router = DefaultRouter()
 router.register('users', UserViewSet)
 router.register('images', ImageViewSet)
-router.register('addresses', AddressViewSet)
+router.register('localizations', LocalizationViewSet)
 router.register('rawmaterials', RawMaterialViewSet)
 router.register('subtypes', SubtypeViewSet)
 
