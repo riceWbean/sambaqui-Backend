@@ -2,6 +2,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from core.models import Artefact
 from core.serializers import ArtefactCreateSerializer, ArtefactListSerializer, ArtefactRetrieveSerializer, ArtefactImageSerializer
+from core.paginators import ArtefactPagination
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework import status
@@ -20,25 +21,17 @@ class ArtefactViewSet(ModelViewSet):
 
     filter_backends = [filters.SearchFilter]
     search_fields = ['name', 'other_name', 'description']
+    pagination_class = ArtefactPagination
 
     def get_queryset(self):
         queryset = Artefact.objects.prefetch_related("images").all().order_by("-id")
 
-        if self.action != "retrieve":
-            allowed_filters = ['conservation_status', 'completeness', 'detail_conservation_status', 'collection_category', 'ethnic_group', 'technique', 'reserved', 'collection', 'raw_material', 'sub_type', 'archaeological_site']
+        allowed_filters = ['conservation_status', 'completeness', 'detail_conservation_status', 'collection_category', 'ethnic_group', 'technique', 'reserved', 'collection', 'raw_material', 'sub_type', 'archaeological_site']
 
-            for key, value in self.request.GET.items():
-                if key in allowed_filters and value:
-                    print(key)
-                    queryset = queryset.filter(**{key: value}).order_by("-id")
-            
-            
-            num_artefacts = self.request.GET.get('num_artefacts', 15)
-            page = self.request.GET.get('page', 1)
-
-            artefacts_per_paginator = Paginator(queryset, num_artefacts)
-            
-            return artefacts_per_paginator.get_page(page)
+        for key, value in self.request.GET.items():
+            if key in allowed_filters and value:
+                print(key)
+                queryset = queryset.filter(**{key: value}).order_by("-id")
         
         return queryset
 
