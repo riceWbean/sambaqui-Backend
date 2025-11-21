@@ -6,3 +6,4 @@ from .collection import CollectionViewSet
 from .localization import LocalizationViewSet
 from .origin import OriginViewSet
 from .log_movement import LogMovementViewSet
+from .reserve import ReserveViewSet

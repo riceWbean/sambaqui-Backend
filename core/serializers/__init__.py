@@ -6,3 +6,4 @@ from .collection import CollectionSerializer
 from .localization import LocalizationSerializer
 from .origin import OriginSerializer
 from .log_movement import LogMovementSerializer
+from .reserve import ReserveSerializer

@@ -26,6 +26,7 @@ router.register('rawmaterials', RawMaterialViewSet)
 router.register('subtypes', SubtypeViewSet)
 router.register('origins', OriginViewSet)
 router.register('logmovements', LogMovementViewSet)
+router.register('reserves', ReserveViewSet)
 
 
 urlpatterns = [
