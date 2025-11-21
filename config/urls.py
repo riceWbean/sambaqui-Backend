@@ -3,6 +3,7 @@ from django.urls import path, include
 
 from rest_framework.routers import DefaultRouter
 from usuario.views import UserViewSet
+from core.views import *
 
 from drf_spectacular.views import (
     SpectacularAPIView,
@@ -17,6 +18,7 @@ from rest_framework_simplejwt.views import (
 
 router = DefaultRouter()
 router.register('users', UserViewSet)
+router.register('images', ImageViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
