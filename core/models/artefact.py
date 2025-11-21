@@ -4,6 +4,7 @@ from .localization import Localization
 from .collection import Collection
 from .raw_material import RawMaterial
 from .sub_type import SubType
+from .archaelogical_site import ArchaeologicalSite
 
 class Artefact(models.Model):
     class ConservationStatus(models.IntegerChoices):
@@ -61,12 +62,11 @@ class Artefact(models.Model):
     register_date = models.DateField(auto_now_add=True)
     bibliographic_reference = models.TextField()
     reserved = models.BooleanField(default=False)
-    localization = models.ForeignKey()
-    collection = models.ForeignKey()
-    raw_material = models.ForeignKey()
-    sub_type = models.ForeignKey()
-    origin = models.ForeignKey()
-    archaeological_site = models.ForeignKey()
+    localization = models.ForeignKey(Localization, on_delete=models.PROTECT, related_name="artefacts_localization")
+    collection = models.ForeignKey(Collection, on_delete=models.PROTECT, related_name="artefacts")
+    raw_material = models.ForeignKey(RawMaterial, on_delete=models.PROTECT, related_name="artefacts_rm")
+    sub_type = models.ForeignKey(SubType, on_delete=models.PROTECT, related_name="artefacts_st")
+    archaeological_site = models.ForeignKey(ArchaeologicalSite, on_delete=models.PROTECT, related_name="artefacts_as")
 
     def __str__(self):
         return f"#{self.id} {self.name}"
