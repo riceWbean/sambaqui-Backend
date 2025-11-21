@@ -7,6 +7,7 @@ def image_to_base64(file):
 
     image = Image.open(file)
     image.verify()
+    print(image.format)
 
     if image.format not in ["JPEG", "JPG", "PNG"]:
         raise TypeError("Invalid image format")

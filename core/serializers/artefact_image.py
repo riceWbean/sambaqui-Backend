@@ -12,6 +12,7 @@ class ArtefactImageSerializer(ModelSerializer):
         fields = ['public_id_cloudinary', 'url_photo', 'artefact', 'file']
 
     def create(self, validated_data):
+        print(validated_data.get('file'))
         image_response = create_image_user(validated_data.get('file'))
 
         object = {"public_id_cloudinary": image_response['public_id'], "url_photo": image_response['secure_url'], "artefact": validated_data.get('artefact')}

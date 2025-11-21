@@ -15,15 +15,18 @@ class ArtefactViewSet(ModelViewSet):
         serializerArtefact.is_valid(raise_exception=True)
         artefact = serializerArtefact.save()
 
-        for file in request.FILES:
+        images = request.FILES.getlist("files")
+
+        for file in images:
             object = {"file": file, "artefact": artefact.id}
             try:
+                print(file, object)
                 serializerImage = ArtefactImageSerializer(data=object)
                 serializerImage.is_valid(raise_exception=True)
                 serializerImage.save()
             except APIException as e:
-                return Response({"error_code": "CLOUDINARY_ERROR", "message": f"{e}"})
+                return Response({"error_code": "CLOUDINARY_ERROR", "message": f"{e}"}, status=status.HTTP_400_BAD_REQUEST)
         
-        serializerResponse = ArtefactSerializer(self.queryset)
+        serializerResponse = ArtefactSerializer(artefact)
 
         return Response(data=serializerResponse.data, status=status.HTTP_201_CREATED)

@@ -27,7 +27,7 @@ class Artefact(models.Model):
         DEFORMED = 6, "Deformado"
         STABLE = 7, "Estável"
     class CollectionCategory(models.IntegerChoices):
-        ARCHAEOLOGICAL = 1, "Archaeological"
+        ARCHAEOLOGICAL = 1, "Arqueológico"
         ETHNOGRAPHIC = 2, "Etnográfico"
         PALEONTOLOGICAL = 3, "Paleontológico"
         HISTORIC = 4, "Histórico"
@@ -50,13 +50,17 @@ class Artefact(models.Model):
         BURNISHING = 8, "Friccionamento"
         NONE_IDENTIFIED = 9, "Não identificada"
     name = models.CharField(max_length=100)
-    other_name = models.CharField(max_length=100)
+    other_name = models.CharField(max_length=100, null=True, blank=True)
     dimension_length = models.PositiveSmallIntegerField()
     dimension_width = models.PositiveSmallIntegerField()
     weigth = models.PositiveIntegerField()
     dating = models.PositiveSmallIntegerField(null=True, blank=True)
-    conservation_status = models.IntegerField(choices=ConservationStatus.choices)
-    completeness = models.IntegerField()
+    conservation_status = models.IntegerField(choices=ConservationStatus.choices, default=1)
+    completeness = models.IntegerField(choices=Completeness.choices, default=1)
+    detail_conservation_status = models.IntegerField(choices=DetailConservationStatus.choices, default=1)
+    collection_category = models.IntegerField(choices=CollectionCategory.choices, default=1)
+    ethnic_group = models.IntegerField(choices=EthnicGroup.choices, default=1)
+    technique = models.IntegerField(choices=Technique.choices, default=1)
     description = models.TextField()
     observation = models.TextField()
     register_date = models.DateField(auto_now_add=True)
