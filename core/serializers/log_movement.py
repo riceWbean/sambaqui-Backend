@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models.Log_movement import LogMovement
+from core.models.log_movement import LogMovement
 
 class LogMovementSerializer(serializers.ModelSerializer):
     class Meta:
