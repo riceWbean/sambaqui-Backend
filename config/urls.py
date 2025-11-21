@@ -19,6 +19,7 @@ from rest_framework_simplejwt.views import (
 router = DefaultRouter()
 router.register('users', UserViewSet)
 router.register('images', ImageViewSet)
+router.register('collections', CollectionViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
