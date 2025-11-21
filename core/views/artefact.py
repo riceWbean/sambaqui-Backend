@@ -7,8 +7,6 @@ from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import filters
-from django.core.paginator import Paginator
-from django_filters.rest_framework import DjangoFilterBackend
 
 class ArtefactViewSet(ModelViewSet):
     def get_serializer_class(self):
