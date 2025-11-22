@@ -18,7 +18,7 @@ from rest_framework_simplejwt.views import (
 )
 
 router = DefaultRouter()
-router.register('users', UserViewSet)
+router.register('users', UserViewSet, basename="users")
 router.register('artefact-images', ArtefactImageViewSet)
 router.register('collections', CollectionViewSet)
 router.register('localizations', LocalizationViewSet)

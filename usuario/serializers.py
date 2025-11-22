@@ -1,5 +1,5 @@
 from django.db import transaction
-from rest_framework.serializers import ModelSerializer, CharField, FileField
+from rest_framework.serializers import ModelSerializer, CharField, FileField, HiddenField, CurrentUserDefault
 from django.contrib.auth.models import Group
 from .models import Usuario
 from utils.upload import create_image_user
@@ -32,6 +32,7 @@ class UserRegisterSerializer(ModelSerializer):
             return user
 
 class UserSerializer(ModelSerializer):
+    user = HiddenField(default=CurrentUserDefault())
     class Meta:
         model = Usuario
         fields = "__all__"
