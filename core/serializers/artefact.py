@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
 from core.models import Artefact
 from core.serializers import ArtefactImageSerializer
@@ -42,6 +42,9 @@ class ArtefactListSerializer(ModelSerializer):
         fields = [
             "id",
             "name",
+            "collection",
+            "localization",
+            "conservation_status",
             "raw_material",
             "sub_type",
             "images",

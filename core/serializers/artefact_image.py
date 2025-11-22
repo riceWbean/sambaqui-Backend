@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer, CharField, FileField
 
 from core.models import ArtefactImage
-from utils.upload import create_image_user
+from utils.upload import create_image_user, update_image
 
 class ArtefactImageSerializer(ModelSerializer):
     public_id_cloudinary = CharField(required=False, allow_null=True)
@@ -9,7 +9,7 @@ class ArtefactImageSerializer(ModelSerializer):
     file = FileField(write_only=True)
     class Meta:
         model = ArtefactImage
-        fields = ['public_id_cloudinary', 'url_photo', 'artefact', 'file']
+        fields = ['id', 'public_id_cloudinary', 'url_photo', 'artefact', 'file']
 
     def create(self, validated_data):
         print(validated_data.get('file'))
@@ -20,3 +20,12 @@ class ArtefactImageSerializer(ModelSerializer):
         artefact_image = ArtefactImage.objects.create(**object)
 
         return artefact_image
+    
+    def update(self, instance, validated_data):
+        image_response = update_image(validated_data.get('file'), public_id=instance.public_id_cloudinary)
+
+        instance.public_id_cloudinary = image_response['public_id']
+        instance.url_photo = image_response['secure_url']
+        instance.save()
+
+        return instance

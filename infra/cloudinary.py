@@ -23,3 +23,15 @@ class UploaderCloudinary:
         except Exception as error:
             raise APIException(f'Error uploading image of user: {error}')
         return response
+    
+    def update_image(self, file, public_id):
+        from utils.upload import image_to_base64
+
+        image = image_to_base64(file=file)
+
+        try:
+            response = cloudinary.uploader.upload(image, public_id=public_id)
+        except Exception as error:
+            raise APIException(f'Error updating image: {error}')
+        
+        return response
