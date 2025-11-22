@@ -1,11 +1,12 @@
 from rest_framework.viewsets import ModelViewSet
 
-from core.models import Artefact
-from core.serializers import ArtefactCreateSerializer, ArtefactListSerializer, ArtefactRetrieveSerializer, ArtefactImageSerializer
+from core.models import Artefact, Collection, Localization, RawMaterial, SubType, ArchaeologicalSite
+from core.serializers import ArtefactCreateSerializer, ArtefactListSerializer, ArtefactRetrieveSerializer, ArtefactImageSerializer, CollectionSerializer, LocalizationSerializer, RawMaterialSerializer, SubTypeSerializer
 from core.paginators import ArtefactPagination
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework import filters
 
 class ArtefactViewSet(ModelViewSet):
@@ -32,6 +33,36 @@ class ArtefactViewSet(ModelViewSet):
                 queryset = queryset.filter(**{key: value}).order_by("-id")
         
         return queryset
+    
+    @action(detail=False, methods=['GET'])
+    def list_categories(self, request):
+        serializerCollection = CollectionSerializer(Collection.objects.all(), many=True)
+        serializerLocalization = LocalizationSerializer(Localization.objects.all(), many=True)
+        serializerRawMaterial = RawMaterialSerializer(RawMaterial.objects.all(), many=True)
+        serializerSubType = SubTypeSerializer(SubType.objects.all(), many=True)
+
+        response = {
+            "collections": serializerCollection.data,
+            "localizations": serializerLocalization.data,
+            "raw_materials": serializerRawMaterial.data,
+            "sub_type": serializerSubType.data
+        }
+
+        return Response(data=response, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=['GET'])
+    def list_dashboard(self, request):
+        total_artefacts = Artefact.objects.all().count()
+        total_collections = Collection.objects.all().count()
+        total_archaelogical_site = ArchaeologicalSite.objects.all().count()
+        total_raw_materials = RawMaterial.objects.all().count()
+
+        return Response(data={
+            "total_artefacts": total_artefacts,
+            "total_collections": total_collections,
+            "total_archaelogical_site": total_archaelogical_site,
+            "total_raw_materials": total_raw_materials
+        }, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
         serializerArtefact = ArtefactCreateSerializer(data=request.data)
