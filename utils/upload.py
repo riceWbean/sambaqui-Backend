@@ -22,8 +22,8 @@ def create_image_user(file):
 
     return response
 
-def update_image(file):
+def update_image(file, public_id):
     uploader = UploaderCloudinary()
-    response = uploader.update_image(file=file)
+    response = uploader.update_image(file=file, public_id=public_id)
 
     return response

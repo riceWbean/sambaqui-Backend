@@ -42,6 +42,9 @@ class ArtefactListSerializer(ModelSerializer):
         fields = [
             "id",
             "name",
+            "collection",
+            "localization",
+            "conservation_status",
             "raw_material",
             "sub_type",
             "images",
