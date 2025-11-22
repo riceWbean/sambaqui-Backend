@@ -49,6 +49,7 @@ class Artefact(models.Model):
         RETOUCH = 7, "Retoque"
         BURNISHING = 8, "Friccionamento"
         NONE_IDENTIFIED = 9, "Não identificada"
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     other_name = models.CharField(max_length=100, null=True, blank=True)
     dimension_length = models.PositiveSmallIntegerField()
@@ -62,9 +63,9 @@ class Artefact(models.Model):
     ethnic_group = models.IntegerField(choices=EthnicGroup.choices, default=1)
     technique = models.IntegerField(choices=Technique.choices, default=1)
     description = models.TextField()
-    observation = models.TextField()
+    observation = models.TextField(null=True, blank=True)
     register_date = models.DateField(auto_now_add=True)
-    bibliographic_reference = models.TextField()
+    bibliographic_reference = models.TextField(null=True, blank=True)
     reserved = models.BooleanField(default=False)
     localization = models.ForeignKey(Localization, on_delete=models.PROTECT, related_name="artefacts_localization")
     collection = models.ForeignKey(Collection, on_delete=models.PROTECT, related_name="artefacts")
