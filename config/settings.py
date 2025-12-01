@@ -172,6 +172,7 @@ SIMPLE_JWT = {
 }
 
 ALLOWED_HOSTS = [
+    "sambaqui-backend.onrender.com",
     "localhost",
     "127.0.0.1"
 ]
