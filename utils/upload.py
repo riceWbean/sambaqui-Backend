@@ -7,6 +7,7 @@ def image_to_base64(file):
 
     image = Image.open(file)
     image.verify()
+    print(image.format)
 
     if image.format not in ["JPEG", "JPG", "PNG"]:
         raise TypeError("Invalid image format")
@@ -18,5 +19,11 @@ def image_to_base64(file):
 def create_image_user(file):
     uploader = UploaderCloudinary()
     response = uploader.create_image_user(file=file)
+
+    return response
+
+def update_image(file, public_id):
+    uploader = UploaderCloudinary()
+    response = uploader.update_image(file=file, public_id=public_id)
 
     return response
