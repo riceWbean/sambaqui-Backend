@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 
 from core.models import Artefact, Collection, Localization, RawMaterial, SubType, ArchaeologicalSite
-from core.serializers import ArtefactCreateSerializer, ArtefactListSerializer, ArtefactRetrieveSerializer, ArtefactImageSerializer, CollectionSerializer, LocalizationSerializer, RawMaterialSerializer, SubTypeSerializer
+from core.serializers import ArtefactCreateSerializer, ArtefactListSerializer, ArtefactRetrieveSerializer, ArtefactImageSerializer, CollectionSerializer, LocalizationSerializer, RawMaterialSerializer, SubTypeSerializer, ArchaeologicalSiteSerializer
 from core.paginators import ArtefactPagination
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
@@ -40,12 +40,14 @@ class ArtefactViewSet(ModelViewSet):
         serializerLocalization = LocalizationSerializer(Localization.objects.all(), many=True)
         serializerRawMaterial = RawMaterialSerializer(RawMaterial.objects.all(), many=True)
         serializerSubType = SubTypeSerializer(SubType.objects.all(), many=True)
+        serializerArchaeologicalSite = ArchaeologicalSiteSerializer(ArchaeologicalSite.objects.all(), many=True)
 
         response = {
             "collections": serializerCollection.data,
             "localizations": serializerLocalization.data,
             "raw_materials": serializerRawMaterial.data,
-            "sub_type": serializerSubType.data
+            "sub_type": serializerSubType.data,
+            "archaeological_sites": serializerArchaeologicalSite.data
         }
 
         return Response(data=response, status=status.HTTP_200_OK)
@@ -71,8 +73,11 @@ class ArtefactViewSet(ModelViewSet):
 
         images = request.FILES.getlist("files")
 
+        print(images)
+
         for file in images:
             object = {"file": file, "artefact": artefact.id}
+            print(object)
             try:
                 print(file, object)
                 serializerImage = ArtefactImageSerializer(data=object)

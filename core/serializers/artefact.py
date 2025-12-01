@@ -4,7 +4,7 @@ from core.models import Artefact
 from core.serializers import ArtefactImageSerializer
 
 class ArtefactCreateSerializer(ModelSerializer):
-    images = ArtefactImageSerializer(many=True, required=False, allow_null=True)
+    images = ArtefactImageSerializer(many=True, required=False, allow_null=True, read_only=True)
     class Meta:
         model = Artefact
         fields = [
@@ -33,7 +33,7 @@ class ArtefactCreateSerializer(ModelSerializer):
             "archaeological_site",
             "images",
         ]
-        read_only_fields = ["id", "register_date"]
+        read_only_fields = ["register_date"]
 
 class ArtefactListSerializer(ModelSerializer):
     images = ArtefactImageSerializer(many=True, required=False, allow_null=True)
