@@ -29,3 +29,7 @@ format = "black ."
 update = "pdm update"
 install = "pdm install"
 export-reqs = "pdm export -f requirements --without-hashes -o requirements.txt"
+
+[[tool.pdm.autoexport]]
+filename = "requirements.txt"
+without-hashes = "true"
