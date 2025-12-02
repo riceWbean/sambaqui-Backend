@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 
-from core.models import Artefact, Collection, Localization, RawMaterial, SubType, ArchaeologicalSite
-from core.serializers import ArtefactCreateSerializer, ArtefactListSerializer, ArtefactRetrieveSerializer, ArtefactImageSerializer, CollectionSerializer, LocalizationSerializer, RawMaterialSerializer, SubTypeSerializer, ArchaeologicalSiteSerializer
+from core.models import Artefact, ArtefactImage, Collection, Localization, RawMaterial, SubType, ArchaeologicalSite
+from core.serializers import ArtefactCreateUpdateSerializer, ArtefactListSerializer, ArtefactRetrieveSerializer, ArtefactImageSerializer, CollectionSerializer, LocalizationSerializer, RawMaterialSerializer, SubTypeSerializer, ArchaeologicalSiteSerializer
 from core.paginators import ArtefactPagination
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
@@ -16,7 +16,7 @@ class ArtefactViewSet(ModelViewSet):
         elif self.action == "retrieve":
             return ArtefactRetrieveSerializer
         else:
-            return ArtefactCreateSerializer
+            return ArtefactCreateUpdateSerializer
 
     filter_backends = [filters.SearchFilter]
     search_fields = ['name', 'other_name', 'description']
@@ -67,7 +67,7 @@ class ArtefactViewSet(ModelViewSet):
         }, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
-        serializerArtefact = ArtefactCreateSerializer(data=request.data)
+        serializerArtefact = ArtefactCreateUpdateSerializer(data=request.data)
         serializerArtefact.is_valid(raise_exception=True)
         artefact = serializerArtefact.save()
 
@@ -86,6 +86,47 @@ class ArtefactViewSet(ModelViewSet):
             except APIException as e:
                 return Response({"error_code": "CLOUDINARY_ERROR", "message": f"{e}"}, status=status.HTTP_400_BAD_REQUEST)
         
-        serializerResponse = ArtefactCreateSerializer(artefact)
+        serializerResponse = ArtefactCreateUpdateSerializer(artefact)
+
+        return Response(data=serializerResponse.data, status=status.HTTP_201_CREATED)
+    
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializerArtefact = ArtefactCreateUpdateSerializer(instance=instance, data=request.data, partial=True)
+        serializerArtefact.is_valid(raise_exception=True)
+        artefact = serializerArtefact.save()
+
+        images = request.FILES.getlist("files")
+        public_ids_cloudinary = request.data.getlist("public_ids_cloudinary", [])
+
+        print(images)
+
+        for index, file in enumerate(images):
+            if len(public_ids_cloudinary[index]) <= index: 
+                for file in images:
+                    object = {"file": file, "artefact": artefact.id}
+                    print(object)
+                    try:
+                        print(file, object)
+                        serializerImage = ArtefactImageSerializer(data=object)
+                        serializerImage.is_valid(raise_exception=True)
+                        serializerImage.save()
+                    except APIException as e:
+                        return Response({"error_code": "CLOUDINARY_ERROR", "message": f"{e}"}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                object = {"file": file, "artefact": artefact.id, "public_id_cloudinary": public_ids_cloudinary[index]}
+                print(object)
+
+                instance_image = ArtefactImage.objects.get(public_id_cloudinary=object.get("public_id_cloudinary"))
+
+                try:
+                    print(file, object)
+                    serializerImage = ArtefactImageSerializer(instance=instance_image, data=object, partial=True)
+                    serializerImage.is_valid(raise_exception=True)
+                    serializerImage.save()
+                except APIException as e:
+                    return Response({"error_code": "CLOUDINARY_ERROR", "message": f"{e}"}, status=status.HTTP_400_BAD_REQUEST)
+            
+        serializerResponse = ArtefactCreateUpdateSerializer(artefact)
 
         return Response(data=serializerResponse.data, status=status.HTTP_201_CREATED)

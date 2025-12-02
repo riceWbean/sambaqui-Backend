@@ -22,7 +22,10 @@ class ArtefactImageSerializer(ModelSerializer):
         return artefact_image
     
     def update(self, instance, validated_data):
-        image_response = update_image(validated_data.get('file'), public_id=instance.public_id_cloudinary)
+        if (validated_data['public_id_cloudinary'] != ''):
+            image_response = update_image(validated_data.get('file'), public_id=instance.public_id_cloudinary)
+        else:
+            image_response = create_image_user(validated_data.get('file'))
 
         instance.public_id_cloudinary = image_response['public_id']
         instance.url_photo = image_response['secure_url']
