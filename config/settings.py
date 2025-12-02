@@ -175,6 +175,7 @@ SIMPLE_JWT = {
 
 ALLOWED_HOSTS = [
     "sambaqui-backend.onrender.com",
+    "acervo-api.productionapp3.fabricadesoftware.ifc.edu.br",
     "localhost",
     "127.0.0.1"
 ]
